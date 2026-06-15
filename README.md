@@ -1,4 +1,4 @@
-# Descobrindo Notebook LLM's #projetoDIO
+# Descobrindo Notebook LM's #projetoDIO
 
 # Busca Gulosa de Melhor Escolha (Greedy Best-First Search)
 
