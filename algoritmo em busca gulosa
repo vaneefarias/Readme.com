@@ -1,6 +1,4 @@
 ```python
-# 1. Definimos o grafo (mapa) com as conexões e custos reais.
-# No exemplo guloso, o custo real é ignorado na escolha, mas o grafo define o caminho disponível.
 mapa_romenia = {
     'Arad': {'Sibiu': 140, 'Timisoara': 118, 'Zerind': 75},
     'Sibiu': {'Arad': 140, 'Fagaras': 99, 'Oradea': 151, 'Rimnicu Vilcea': 80},
@@ -9,8 +7,6 @@ mapa_romenia = {
     # ... outras conexões omitidas para simplificar o exemplo
 }
 
-# 2. Definimos a Heurística (h): Distância em linha reta até Bucareste.
-# Estes valores são fornecidos externamente para "orientar" a busca do agente.
 h_distancia_linha_reta = {
     'Arad': 366,
     'Sibiu': 253,
@@ -23,24 +19,19 @@ h_distancia_linha_reta = {
 }
 
 def busca_gulosa(inicio, objetivo):
-    # A 'borda' armazena os nós que podemos expandir a seguir.
-    # Inicializamos a busca contendo apenas o nó de partida.
     borda = [inicio]
     caminho = []
 
     while borda:
-        # Escolhemos o nó na borda com a MENOR heurística h(n) (mais "perto" do objetivo).
         atual = min(borda, key=lambda no: h_distancia_linha_reta[no])
         borda.remove(atual)
         caminho.append(atual)
 
         print(f"Estou em: {atual} (h = {h_distancia_linha_reta[atual]})")
 
-        # Verificação de meta
         if atual == objetivo:
             return caminho  # Objetivo encontrado com sucesso!
 
-        # Expandimos o nó atual: adicionamos seus vizinhos à borda.
         for vizinho in mapa_romenia.get(atual, {}):
             if vizinho not in caminho and vizinho not in borda:
                 borda.append(vizinho)
